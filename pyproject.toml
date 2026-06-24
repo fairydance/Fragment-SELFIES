@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fragment-selfies"
+version = "1.0.0"
+description = "Robust fragment-aware molecular language with SELFIES-compatible fragment bodies."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  { name = "Haoyu Lin" }
+]
+dependencies = [
+  "selfies>=2.2.0",
+  "tqdm>=4.66.0"
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+fragment-selfies = "fragment_selfies.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
