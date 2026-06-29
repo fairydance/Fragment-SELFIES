@@ -9,9 +9,9 @@ large corpus-specific IDs such as `[F:F000001]`. Instead, it emits tokens like
 `[Frag]`, `[Frag@0]`, `[Attach:0]`, `[pop]`, and SELFIES-compatible
 fragment-body tokens such as `[C]`, `[=C]`, `[Branch1]`, `[Ring1]`, and `[Dummy]`.
 
-Full technical details are in [`docs/fragment_selfies.md`](docs/fragment_selfies.md).
+Full technical details are in [`docs/fragment_selfies.md`](https://github.com/fairydance/Fragment-SELFIES/blob/main/docs/fragment_selfies.md).
 
-![Fragment-SELFIES codec overview](images/fragment_selfies_codec.png)
+![Fragment-SELFIES codec overview](https://raw.githubusercontent.com/fairydance/Fragment-SELFIES/main/images/fragment_selfies_codec.png)
 
 ## Why This Format Exists
 
@@ -33,8 +33,17 @@ This gives molecular language-model workflows a representation with:
 
 ## Installation
 
-Fragment-SELFIES supports Python 3.11 and newer. RDKit is required; installing it
-from `conda-forge` is recommended.
+Fragment-SELFIES supports Python 3.11 and newer.
+
+```bash
+python -m pip install fragment-selfies
+```
+
+RDKit is a runtime dependency. If a compatible RDKit wheel is unavailable for
+your platform, install RDKit from `conda-forge` first, then install
+Fragment-SELFIES with pip in the same environment.
+
+Development install:
 
 ```bash
 git clone https://github.com/fairydance/Fragment-SELFIES.git
@@ -42,13 +51,21 @@ cd Fragment-SELFIES
 conda create -n fragment_selfies python=3.13
 conda activate fragment_selfies
 conda install -c conda-forge rdkit
-python -m pip install -e .
+python -m pip install -e ".[test]"
 ```
 
 Verify the installation:
 
 ```bash
 python -m pytest -q
+```
+
+Build and validate release artifacts:
+
+```bash
+python -m pip install --upgrade build twine
+python -m build
+python -m twine check dist/*
 ```
 
 ## Token Grammar
@@ -351,6 +368,20 @@ Recommended integration path:
 4. Use `FragmentSelfiesCodec.decode()` plus `Chem.MolToSmiles()` for generated molecule recovery.
 
 Fragment-SELFIES is the molecular language used by [Molexar](https://github.com/fairydance/Molexar), a unified multimodal molecular foundation model for drug design.
+
+## Citation
+
+```bibtex
+@misc{lin2026molexarunifiedmultimodalmolecular,
+      title={Molexar: A Unified Multimodal Molecular Foundation Model for Drug Design}, 
+      author={Haoyu Lin and Yiyan Liao and Jinmei Pan and Xinliao Ling and Luhua Lai and Jianfeng Pei},
+      year={2026},
+      eprint={2606.25865},
+      archivePrefix={arXiv},
+      primaryClass={q-bio.BM},
+      url={https://arxiv.org/abs/2606.25865}, 
+}
+```
 
 ## License
 
